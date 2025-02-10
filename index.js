@@ -9,7 +9,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 function getUserCoordinates(){
     console.log("Locating")
-    map.locate({watch: true, enableHighAccuracy: true, timeout: 15000})
+    map.locate({enableHighAccuracy: true, timeout: 15000})
     map.once('locationfound', function(e) {
         console.log("Location found")
         if (userMarker) {
@@ -21,7 +21,7 @@ function getUserCoordinates(){
         }
     });
 
-    map.on('locationerror', function(e) {
+    map.once('locationerror', function(e) {
         console.log("Location not found")
     });
 };
