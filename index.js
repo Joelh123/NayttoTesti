@@ -6,10 +6,11 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 function getUserCoordinates(){
-    map.locate({watch: true, enableHighAccuracy: true})
+    console.log("Locating")
+    map.locate({watch: true, enableHighAccuracy: true, timeout: 10000})
     map.on('locationfound', function(e) {
         let userMarker = L.marker(e.latlng).bindPopup("Your current location").addTo(map);
-        stopLocate()
+        map.stopLocate()
     });
 
     map.on('locationerror', function(e) {
@@ -17,4 +18,4 @@ function getUserCoordinates(){
     });
 };
 
-getUserCoordinates();
+setInterval(getUserCoordinates, 15000);
