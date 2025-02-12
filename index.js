@@ -1,5 +1,13 @@
 let map = L.map('map', { minZoom: 6, maxZoom: 19, inertia: true, inertiaDeceleration: 20000 }).setView([61.687879, 27.273147], 17)
 let userMarker = null
+var bounds = L.latLngBounds(
+    L.latLng(59.5, 19.0),
+    L.latLng(70.5, 31.5)
+);
+map.setMaxBounds(bounds);
+map.on('drag', function() {
+    map.panInsideBounds(bounds, { animate: false });
+});
 
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
