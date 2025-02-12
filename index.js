@@ -1,4 +1,4 @@
-let map = L.map('map', { minZoom: 6, maxZoom: 19 }).setView([61.687879, 27.273147], 17)
+let map = L.map('map', { minZoom: 6, maxZoom: 19, inertia: true, inertiaDeceleration: 20000 }).setView([61.687879, 27.273147], 17)
 let userMarker = null
 
 
