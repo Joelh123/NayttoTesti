@@ -13,8 +13,9 @@ map.on('drag', function() {
 
 document.addEventListener("DOMContentLoaded", () => {
     const button = document.querySelector(".button-action");
-    button.addEventListener("click", checkDistance);
+    button.addEventListener("click", checkDistance());
 });
+
 //For custom icon replace Icon with icon and remove iconUrl
 var CustomIcon = L.Icon.extend({
     options: {
