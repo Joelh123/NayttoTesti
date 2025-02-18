@@ -5,15 +5,9 @@ var bounds = L.latLngBounds(
     L.latLng(70.5, 31.5)
 );
 
-
 map.setMaxBounds(bounds);
 map.on('drag', function() {
     map.panInsideBounds(bounds, { animate: false });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    const button = document.querySelector(".button-action");
-    button.addEventListener("click", checkDistance());
 });
 
 //For custom icon replace Icon with icon and remove iconUrl
@@ -48,7 +42,7 @@ function getUserCoordinates(){
         } else {
             userMarker = L.marker(e.latlng).bindPopup("Your current location").addTo(map);
         }
-        //checkDistance();
+        checkDistance();
     });  
     };
 
@@ -56,23 +50,20 @@ function getUserCoordinates(){
         console.log("Location not found")
 });
 
-
 function checkDistance(){
-    alert("Test")
-        if (userMarker) {
-            let distance = userMarker.getLatLng().distanceTo(marker1.getLatLng());
-            console.log(distance);
+    //alert("Test")
+    if (userMarker) {
+        let distance = Math.trunc(userMarker.getLatLng().distanceTo(marker1.getLatLng()));
+        if (distance <= 1000){
+            console.log(`${distance} meters`);
+        } else {
+            console.log(`${distance.toFixed(1)}km`);
         }
     }
-
+};
 
 let marker1 = L.marker([61.687879, 27.273147], {icon: customIcon1}).addTo(map).bindPopup("Test icon");
 let marker2 = L.marker([62.687879, 27.273147], {icon: customIcon2}).addTo(map).bindPopup("Test icon");
 
-
-
 getUserCoordinates();
 setInterval(getUserCoordinates, 15000);
-console.log(userMarker)
-
-
