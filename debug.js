@@ -10,7 +10,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 function getMarkerCoordinates(){
     console.log("Locating")
-    map.locate({watch: true, enableHighAccuracy: true, timeout: 10000})
+    map.locate({ enableHighAccuracy: true, timeout: 10000})
     map.once('locationfound', function(e) {
         console.log("Location found")
         if (marker) {
@@ -31,7 +31,7 @@ function getMarkerCoordinates(){
 
 function displayPopup() {
     if(map.distance(marker.getLatLng(), mannerheimMarker.func.getLatLng()) <= thresholdDistance && !mannerheimMarker.isSet) {
-        let popup = L.popup(mannerheimMarker.func.getLatLng(), {content: '<p>Mannerheimin patsas</p>'})
+        let popup = L.popup(mannerheimMarker.func.getLatLng(), { content: '<p>Mannerheimin patsas</p>', closeButton: false })
                     .openOn(map);
         mannerheimMarker.isSet = true
     } else if (map.distance(marker.getLatLng(), mannerheimMarker.func.getLatLng()) > thresholdDistance) {
