@@ -23,9 +23,14 @@ var CustomIcon = L.Icon.extend({
     }
 });
 
-//var customIcon1 = new CustomIcon({iconUrl: 'YOUR ICON IMAGE HERE'}), for custom icon images
-var customIcon1 = new CustomIcon(),
-    customIcon2 = new CustomIcon();
+
+let markers = [
+    { marker1: L.marker([61.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Test icon") },
+    { marker2: L.marker([62.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Test icon") },
+]
+
+//let marker1 = L.marker([61.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Test icon");
+//let marker2 = L.marker([62.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Test icon");
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -62,8 +67,7 @@ function checkDistance(){
     }
 };
 
-let marker1 = L.marker([61.687879, 27.273147], {icon: customIcon1}).addTo(map).bindPopup("Test icon");
-let marker2 = L.marker([62.687879, 27.273147], {icon: customIcon2}).addTo(map).bindPopup("Test icon");
+
 
 getUserCoordinates();
 setInterval(getUserCoordinates, 15000);
