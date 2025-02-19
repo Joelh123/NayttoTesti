@@ -1,6 +1,6 @@
-let map = L.map('map', { minZoom: 6, maxZoom: 19, inertia: true, inertiaDeceleration: 20000 }).setView([61.687879, 27.273147], 17)
-let userMarker = null
-let thresholdDistance = 20
+let map = L.map('map', { minZoom: 6, maxZoom: 19, inertia: true, inertiaDeceleration: 20000 }).setView([61.687879, 27.273147], 17);
+let userMarker = null;
+let thresholdDistance = 20;
 var bounds = L.latLngBounds(
     L.latLng(59.5, 19.0),
     L.latLng(70.5, 31.5)
@@ -24,19 +24,30 @@ var CustomIcon = L.Icon.extend({
     }
 });
 
-
 let markers = [
     { name: L.marker([61.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Test icon") },
     { name: L.marker([62.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Test icon") },
 ]
 
-//let marker1 = L.marker([61.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Test icon");
-//let marker2 = L.marker([62.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Test icon");
-
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
+
+function selectLocation(){
+    let text = document.getElementById("text").value
+    map.once('click', function(e){
+    var coord = e.latlng;
+    var lat = coord.lat;
+    var lng = coord.lng;
+    addMarker(lat, lng, text);
+    })
+}
+
+function addMarker(lat, lng, iconText){
+    newMarker = { name: L.marker([lat, lng], {icon: new CustomIcon()}).addTo(map).bindPopup(iconText) }
+    markers.push(newMarker)
+};
 
 function getUserCoordinates(){
     console.log("Locating")
@@ -58,7 +69,6 @@ function getUserCoordinates(){
 });
 
 function checkDistance(){
-    //alert("Test")
     if (userMarker) {
         let distance = Math.trunc(userMarker.getLatLng().distanceTo(markers[0].name.getLatLng()));
         if (distance <= 1000){
@@ -79,4 +89,5 @@ function displayPopup() {
 }
 
 getUserCoordinates();
+addMarker(61.687879, 27.273147, "New custom marker")
 setInterval(getUserCoordinates, 15000);

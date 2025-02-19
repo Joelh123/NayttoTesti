@@ -8,6 +8,23 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
+var CustomIcon = L.Icon.extend({
+    options: {
+        iconUrl: L.Icon.Default.prototype._getIconUrl('icon'),
+        shadowUrl: L.Icon.Default.prototype._getIconUrl('shadow'),
+        iconSize: [25, 41],
+        shadowSize: [41, 41],
+        iconAnchor: [12, 41],
+        shadowAnchor: [12, 41],
+        popupAnchor: [1, -34]
+    }
+});
+
+
+let markers = [
+
+]
+
 function getMarkerCoordinates(){
     console.log("Locating")
     map.locate({ enableHighAccuracy: true, timeout: 10000})
@@ -38,6 +55,21 @@ function displayPopup() {
         mannerheimMarker.isSet = false
     }
 }
+
+function selectLocation(){
+    let text = document.getElementById("text").value
+    map.once('click', function(e){
+    var coord = e.latlng;
+    var lat = coord.lat;
+    var lng = coord.lng;
+    addMarker(lat, lng, text);
+    })
+}
+
+function addMarker(lat, lng, iconText){
+    newMarker = { name: L.marker([lat, lng], {icon: new CustomIcon()}).addTo(map).bindPopup(iconText) }
+    markers.push(newMarker)
+};
 
 getMarkerCoordinates();
 setInterval(getMarkerCoordinates, 10000);
