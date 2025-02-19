@@ -1,5 +1,5 @@
 let map = L.map('map', { minZoom: 6, maxZoom: 19, maxBounds: [[59, 10],[73, 40]] }).setView([61.687879, 27.273147], 17)
-let marker = L.marker([61.687879, 27.273147], { draggable: true }).addTo(map)
+let userMarker = L.marker([61.687879, 27.273147], { draggable: true }).addTo(map)
 let mannerheimMarker = { isSet: false, func: L.circle([61.68789288044503, 27.272207983109546], {radius: 10}).addTo(map) }
 let thresholdDistance = 20
 
@@ -30,12 +30,12 @@ function getMarkerCoordinates(){
     map.locate({ enableHighAccuracy: true, timeout: 10000})
     map.once('locationfound', function(e) {
         console.log("Location found")
-        if (marker) {
-            console.log(marker.getLatLng())
+        if (userMarker) {
+            console.log(userMarker.getLatLng())
             map.stopLocate()
         } else {
             map.stopLocate()
-            marker = L.marker(e.latlng).bindPopup("Your current location").addTo(map);
+            userMarker = L.marker(e.latlng).bindPopup("Your current location").addTo(map);
         }
     });
 
@@ -47,12 +47,11 @@ function getMarkerCoordinates(){
 };
 
 function displayPopup() {
-    if(map.distance(marker.getLatLng(), mannerheimMarker.func.getLatLng()) <= thresholdDistance && !mannerheimMarker.isSet) {
-        let popup = L.popup(mannerheimMarker.func.getLatLng(), { content: '<p>Mannerheimin patsas</p>', closeButton: false })
-                    .openOn(map);
-        mannerheimMarker.isSet = true
-    } else if (map.distance(marker.getLatLng(), mannerheimMarker.func.getLatLng()) > thresholdDistance) {
-        mannerheimMarker.isSet = false
+    for (const marker of markers) {
+        if (map.distance(userMarker.getLatLng(), marker.name.getLatLng()) <= thresholdDistance) {
+            L.popup(marker.name.getLatLng(), { content: '<p>Testi</p>', closeButton: false })
+                .openOn(map);
+        }
     }
 }
 
