@@ -25,8 +25,14 @@ var CustomIcon = L.Icon.extend({
 });
 
 let markers = [
-    { name: L.marker([61.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Test icon") },
-    { name: L.marker([62.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Test icon") },
+    {
+        name: L.marker([61.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Test icon"),
+        content: 'Mikkelin tori' 
+    },
+    { 
+        name: L.marker([62.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Test icon"),
+        content: 'Joku paikka' 
+    }
 ]
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -82,7 +88,7 @@ function checkDistance(){
 function displayPopup() {
     for (const marker of markers) {
         if (map.distance(userMarker.getLatLng(), marker.name.getLatLng()) <= thresholdDistance) {
-            L.popup(marker.name.getLatLng(), { content: '<p>Testi</p>', closeButton: false })
+            L.popup(marker.name.getLatLng(), { content: marker.content ? `<p>${marker.content}</p>` : 'testi', closeButton: false })
                 .openOn(map);
         }
     }
