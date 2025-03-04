@@ -14,3 +14,11 @@ html, body, #map {
     padding: 10px;
     z-index: 400;
 }
+
+#searchBar {
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    padding: 10px;
+    z-index: 400;
+}
