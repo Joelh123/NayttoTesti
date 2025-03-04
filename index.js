@@ -42,16 +42,17 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 function selectLocation(){
     let text = document.getElementById("text").value
+    let content = document.getElementById("text-content").value
     map.once('click', function(e){
-    var coord = e.latlng;
-    var lat = coord.lat;
-    var lng = coord.lng;
-    addMarker(lat, lng, text);
+        var coord = e.latlng;
+        var lat = coord.lat;
+        var lng = coord.lng;
+        addMarker(lat, lng, text, content);
     })
 }
 
-function addMarker(lat, lng, iconText){
-    newMarker = { name: L.marker([lat, lng], {icon: new CustomIcon()}).addTo(map).bindPopup(iconText) }
+function addMarker(lat, lng, iconText, contentText){
+    newMarker = { name: L.marker([lat, lng], {icon: new CustomIcon()}).addTo(map).bindPopup(iconText), content: contentText }
     markers.push(newMarker)
 };
 
