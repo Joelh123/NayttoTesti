@@ -26,13 +26,17 @@ var CustomIcon = L.Icon.extend({
 
 let markers = [
     {
-        name: L.marker([61.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Test icon"),
-        content: 'Mikkelin tori' 
+        name: L.marker([61.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Tori"),
+        content: '<p>Mikkelin tori</p><br><img src="https://mikkelintoriparkki.fi/wp-content/uploads/Torikuva.jpg" alt="Kuva Mikkelin torista">'
     },
     { 
-        name: L.marker([62.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Test icon"),
-        content: 'Joku paikka' 
-    }
+        name: L.marker([62.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Korpi"),
+        content: '<p>Joku paikka</p>' 
+    },
+    { 
+        name: L.marker([61.688658468886906, 27.269138538504908], {icon: new CustomIcon()}).addTo(map).bindPopup("Pikantti"),
+        content: '<p>Pikantti</p><br><img src="https://lh3.googleusercontent.com/p/AF1QipNhvpDtqQrmz0R9tZNpHYZn2TDc_FuDr-q23Vg8=s680-w680-h510">' 
+    },
 ]
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -89,12 +93,11 @@ function checkDistance(){
 function displayPopup() {
     for (const marker of markers) {
         if (map.distance(userMarker.getLatLng(), marker.name.getLatLng()) <= thresholdDistance) {
-            L.popup(marker.name.getLatLng(), { content: marker.content ? `<p>${marker.content}</p>` : 'testi', closeButton: false })
+            L.popup(marker.name.getLatLng(), { content: marker.content ? marker.content : 'testi', closeButton: false })
                 .openOn(map);
         }
     }
 }
 
 getUserCoordinates();
-addMarker(61.687879, 27.273147, "New custom marker")
 setInterval(getUserCoordinates, 15000);
