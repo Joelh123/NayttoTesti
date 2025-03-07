@@ -22,3 +22,21 @@ html, body, #map {
     padding: 10px;
     z-index: 400;
 }
+
+#selectedMarkerName {
+    position: absolute;
+    background-color: aliceblue;
+    top: 40px;
+    left: 60px;
+    padding: 10px;
+    z-index: 400;
+}
+
+#selectedMarkerDistance {
+    position: absolute;
+    background-color: aliceblue;
+    top: 80px;
+    left: 60px;
+    padding: 10px;
+    z-index: 400;
+}

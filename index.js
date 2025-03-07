@@ -26,14 +26,17 @@ var CustomIcon = L.Icon.extend({
 
 let markers = [
     {
+        title: 'Mikkelin Tori',
         name: L.marker([61.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Tori"),
         content: '<p>Mikkelin tori</p><br><img src="https://mikkelintoriparkki.fi/wp-content/uploads/Torikuva.jpg" alt="Kuva Mikkelin torista">'
     },
-    { 
+    {
+        title: 'Korpi',
         name: L.marker([62.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Korpi"),
         content: '<p>Joku paikka</p>' 
     },
-    { 
+    {
+        title: 'Pikantti',
         name: L.marker([61.688658468886906, 27.269138538504908], {icon: new CustomIcon()}).addTo(map).bindPopup("Pikantti"),
         content: '<p>Pikantti</p><br><img src="https://lh3.googleusercontent.com/p/AF1QipNhvpDtqQrmz0R9tZNpHYZn2TDc_FuDr-q23Vg8=s680-w680-h510">' 
     },
@@ -81,11 +84,19 @@ function getUserCoordinates(){
 
 function checkDistance(){
     if (userMarker) {
-        let distance = Math.trunc(userMarker.getLatLng().distanceTo(markers[0].name.getLatLng()));
-        if (distance < 1000){
-            console.log(`${distance} meters`);
-        } else {
-            console.log(`${(distance / 1000).toFixed(1)}km`);
+        for (const marker of markers) {
+            marker.name.on('click', function(ev){
+                let latlng = map.mouseEventToLatLng(ev.originalEvent);
+                let distance = Math.trunc(userMarker.getLatLng().distanceTo([latlng.lat, latlng.lng]));
+                document.getElementById("selectedMarkerName").innerHTML = marker.title
+                if (distance < 1000){
+                    document.getElementById("selectedMarkerDistance").innerHTML = `${distance} meters`
+                     console.log(`${distance} meters`);
+                } else {
+                    document.getElementById("selectedMarkerDistance").innerHTML = `${(distance / 1000).toFixed(1)}km`
+                    console.log(`${(distance / 1000).toFixed(1)}km`);
+                }
+            });
         }
     }
 };
