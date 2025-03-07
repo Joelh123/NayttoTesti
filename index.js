@@ -1,6 +1,6 @@
-let map = L.map('map', { minZoom: 6, maxZoom: 19, inertia: true, inertiaDeceleration: 20000 }).setView([61.687879, 27.273147], 17);
+let map = L.map('map', { minZoom: 6, maxZoom: 19, inertia: true, inertiaDeceleration: 20000 })//.setView([61.687879, 27.273147], 17);
 let userMarker = null;
-let thresholdDistance = 20;
+let thresholdDistance = 40;
 var bounds = L.latLngBounds(
     L.latLng(59.5, 19.0),
     L.latLng(70.5, 31.5)
@@ -82,7 +82,7 @@ function getUserCoordinates(){
 function checkDistance(){
     if (userMarker) {
         let distance = Math.trunc(userMarker.getLatLng().distanceTo(markers[0].name.getLatLng()));
-        if (distance <= 1000){
+        if (distance < 1000){
             console.log(`${distance} meters`);
         } else {
             console.log(`${(distance / 1000).toFixed(1)}km`);
@@ -93,7 +93,7 @@ function checkDistance(){
 function displayPopup() {
     for (const marker of markers) {
         if (map.distance(userMarker.getLatLng(), marker.name.getLatLng()) <= thresholdDistance) {
-            L.popup(marker.name.getLatLng(), { content: marker.content ? marker.content : 'testi', closeButton: false })
+            L.popup(marker.name.getLatLng(), { content: marker.content ? marker.content : '<p>testi</p>', closeButton: false })
                 .openOn(map);
         }
     }
@@ -101,3 +101,4 @@ function displayPopup() {
 
 getUserCoordinates();
 setInterval(getUserCoordinates, 15000);
+map.locate({ setView: true })
