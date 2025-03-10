@@ -1,4 +1,4 @@
-let map = L.map('map', { minZoom: 6, maxZoom: 19, inertia: true, inertiaDeceleration: 20000 })//.setView([61.687879, 27.273147], 17);
+let map = L.map('map', { minZoom: 6, maxZoom: 19, inertia: true, inertiaDeceleration: 20000 })
 let userMarker = null;
 let thresholdDistance = 40;
 var bounds = L.latLngBounds(
@@ -28,18 +28,27 @@ let markers = [
     {
         title: 'Mikkelin Tori',
         name: L.marker([61.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Tori"),
-        content: '<p>Mikkelin tori</p><br><img src="https://mikkelintoriparkki.fi/wp-content/uploads/Torikuva.jpg" alt="Kuva Mikkelin torista">'
+        content: '<p>Mikkelin tori</p><br><img src="https://mikkelintoriparkki.fi/wp-content/uploads/Torikuva.jpg" alt="Kuva Mikkelin torista">',
+        visited: false
     },
     {
         title: 'Korpi',
         name: L.marker([62.687879, 27.273147], {icon: new CustomIcon()}).addTo(map).bindPopup("Korpi"),
-        content: '<p>Joku paikka</p>' 
+        content: '<p>Joku paikka</p>',
+        visited: false
     },
     {
         title: 'Pikantti',
         name: L.marker([61.688658468886906, 27.269138538504908], {icon: new CustomIcon()}).addTo(map).bindPopup("Pikantti"),
-        content: '<p>Pikantti</p><br><img src="https://lh3.googleusercontent.com/p/AF1QipNhvpDtqQrmz0R9tZNpHYZn2TDc_FuDr-q23Vg8=s680-w680-h510">' 
+        content: '<p>Pikantti</p><br><img src="https://lh3.googleusercontent.com/p/AF1QipNhvpDtqQrmz0R9tZNpHYZn2TDc_FuDr-q23Vg8=s680-w680-h510">',
+        visited: false
     },
+    {
+        title: 'Naisvuori',
+        name: L.marker([61.69217961815744, 27.272360698101572], {icon: new CustomIcon()}).addTo(map).bindPopup("Naisvuori"),
+        content: '<p>Naisvuoren torni</p><br><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKZjpwFzlF1udJbs5BS50n-JcNu26udRuWOQ&s">',
+        visited: false
+    }
 ]
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
